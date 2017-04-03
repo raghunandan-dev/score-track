@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div>
+  Number of matches: <input type="number" id="matchSize" name="numMatches"><br>
+  <input type="button" value="Submit" onclick="matchNumFunc()">
+</div>
+<div id="matchScores">
+
+</div>
+  <div id="results">
+   <input type="button" value="Get Output" onclick="getResult()">
+  </div>
+  
+  <div id="scores">
+  <p>Out put: Number of times record breaks highscore and lowscore:</p>
+  <p id="numHighScore"></p>
+  <p id="numLowScore"></p>
+  </div>
+<script>
+var numMatches = 0;
+function matchNumFunc() {
+  numMatches =    document.getElementById("matchSize").value;
+  var matchScoresDiv = document.getElementById("matchScores");
+            // Clear previous contents of the matchScoresDiv
+            while (matchScoresDiv.hasChildNodes()) {
+                matchScoresDiv.removeChild(matchScoresDiv.lastChild);
+            }
+			var number = Number(numMatches);
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                matchScoresDiv.appendChild(document.createTextNode("Score " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                var input = document.createElement("input");
+                input.type = "number";
+                input.name = "score";
+                matchScoresDiv.appendChild(input);
+                // Append a line break 
+                matchScoresDiv.appendChild(document.createElement("br"));
+            }
+  
+  
+}
+function getResult() {
+
+var inputData =document.getElementsByName("score");
+var numberOfMatches= inputData.length;
+
+var highScore = Number(inputData[0].value);
+var lowScore = Number(inputData[0].value);
+var numOfBreakLowScore = 0;
+var numOfBreakHighScore = 0;
+for(var i=0;i<numberOfMatches;i++){
+if(Number(inputData[i].value)>highScore){
+highScore = Number(inputData[i].value);
+numOfBreakHighScore++;
+}
+if(Number(inputData[i].value)<lowScore){
+lowScore = Number(inputData[i].value);
+numOfBreakLowScore++;
+}
+}
+alert("Number of high socres and low scores changed:"+numOfBreakHighScore+","+numOfBreakLowScore);
+document.getElementById("numHighScore").value = numOfBreakHighScore;
+document.getElementById("numLowScore").value = numOfBreakLowScore;
+}
+</script>
+
+</body>
+</html>
